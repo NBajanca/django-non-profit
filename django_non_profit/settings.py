@@ -32,12 +32,17 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'volunteers',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'phonenumber_field',
+    'captcha',
+    'axes',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -106,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-pt'
 
 TIME_ZONE = 'UTC'
 
@@ -122,3 +127,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
+
+LOGIN_REDIRECT_URL = '/'
+
+# Django Axes
+# https://django-axes.readthedocs.io/en/latest/configuration.html
+AXES_COOLOFF_TIME = 2
+AXES_LOCKOUT_URL = '/locked'
+
+# Django Recaptcha
+# https://github.com/praekelt/django-recaptcha
+RECAPTCHA_PUBLIC_KEY = os.environ['reCAPTCHA_site']
+RECAPTCHA_PRIVATE_KEY = os.environ['reCAPTCHA_secret']
+NOCAPTCHA = True
+
+
+DEFAULT_FROM_EMAIL = 'noreply@refood-cascaiscpr.eu'
+EMAIL_SUBJECT_PREFIX = '[Refood] '
+EMAIL_HOST = 'localhost'
+EMAIL_PORT= 1025
