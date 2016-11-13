@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from volunteers.forms import CaptchaForm
 from axes.utils import reset as axes_reset
-from ipware.ip import get_real_ip, get_ip
+# from ipware.ip import get_real_ip  # Prod
+from ipware.ip import get_ip  # Dev
 
 
 @login_required
