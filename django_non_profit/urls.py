@@ -26,6 +26,5 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     url(r'^', include('volunteers.urls')),
-    prefix_default_language=False,
 )
 
