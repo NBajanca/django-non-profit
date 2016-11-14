@@ -159,4 +159,5 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-erase',
     '--cover-xml',
+    '--cover-package=volunteers'
 ]
