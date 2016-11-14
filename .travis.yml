@@ -4,7 +4,7 @@ python:
 services:
   - postgresql
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements.txt --quiet
   - pip install psycopg2 --quiet
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -13,3 +13,5 @@ env:
 script:
   - python manage.py migrate
   - python manage.py test
+  - coverage xml manage.py test
+  - python-codacy-coverage -r coverage.xml
