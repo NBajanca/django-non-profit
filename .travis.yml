@@ -6,6 +6,7 @@ services:
 install:
   - pip install -r requirements.txt --quiet
   - pip install psycopg2 --quiet
+  - pip install coveralls --quiet
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 env:
@@ -18,3 +19,5 @@ notifications:
   slack:
     on_success: change
     on_failure: change
+after_success:
+  coveralls
