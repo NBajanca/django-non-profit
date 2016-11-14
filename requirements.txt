@@ -1,0 +1,13 @@
+Babel==2.3.4
+Django==1.10.3
+codacy-coverage==1.3.3
+coverage==4.2
+django-axe==2.3.1
+django-ipware==1.1.6
+django-phonenumber-field==1.1.0
+django-recaptcha==1.1.0
+phonenumberslite==7.7.3
+pip==9.0.1
+pytz==2016.7
+requests==2.11.1
+setuptools==18.1
