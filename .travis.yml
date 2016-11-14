@@ -9,12 +9,7 @@ install:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 env:
-  - DJANGO_SETTINGS_MODULE=django_non_profit.settings
-  - SECRET_KEY=travis-very-secure-secret-key
-  - DEBUG=True
-  - DB_ENGINE=django.db.backends.postgresql_psycopg2
-  - DB_NAME=travis_ci_test
-  - DB_USER=postgres
+  - DJANGO_SETTINGS_MODULE=django_non_profit.settings SECRET_KEY=travis-very-secure-secret-key DEBUG=True DB_ENGINE=django.db.backends.postgresql_psycopg2 DB_NAME=travis_ci_test DB_USER=postgres
 script:
   - python manage.py migrate
   - python manage.py test
