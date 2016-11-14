@@ -13,6 +13,5 @@ env:
 script:
   - python manage.py migrate
   - python manage.py test
-  - nosetests --with-coverage --cover-erase
-  - coverage xml manage.py test
+  - coverage xml -i manage.py test
   - python-codacy-coverage -r coverage.xml
