@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'captcha',
     'axes',
+    'django_nose',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -150,3 +151,12 @@ DEFAULT_FROM_EMAIL = 'noreply@refood-cascaiscpr.eu'
 EMAIL_SUBJECT_PREFIX = '[Refood] '
 EMAIL_HOST = 'localhost'
 EMAIL_PORT= 1025
+
+# Nose Test
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-erase',
+    '--cover-xml',
+]
