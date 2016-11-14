@@ -13,7 +13,7 @@ env:
 script:
   - python manage.py migrate
   - python manage.py test
-  - coverage run setup.py test
+  - coverage run manage.py test
   - coverage xml -i ./manage.py test
   - python-codacy-coverage -r coverage.xml
 notifications:
