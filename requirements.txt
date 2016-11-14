@@ -11,4 +11,4 @@ pip==9.0.1
 pytz==2016.7
 requests==2.11.1
 setuptools==18.1
-django-nose=1.4.4
+django-nose==1.4.4
