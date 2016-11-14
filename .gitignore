@@ -93,3 +93,6 @@ ENV/
 
 # SQLite DB
 db.sqlite3
+
+# Django collectstatic
+static/
