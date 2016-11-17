@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DEBUG', 'False') == 'True')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','').split()
 
 
 # Application definition
@@ -83,8 +83,8 @@ WSGI_APPLICATION = 'django_non_profit.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': os.environ['DB_ENGINE'],
-        'NAME': os.environ['DB_NAME'],
+        'ENGINE':   os.environ['DB_ENGINE'],
+        'NAME':     os.environ['DB_NAME'],
         'USER':     os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASS', ''),
         'HOST':     os.environ.get('DB_HOST', ''),
@@ -116,9 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'pt-pt'
+LANGUAGE_CODE = os.environ.get('LANGUAGE_CODE', 'pt-pt')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.environ.get('TIME_ZONE', 'UTC')
 
 USE_I18N = True
 
@@ -137,22 +137,28 @@ LOGIN_REDIRECT_URL = '/'
 
 # Django Axes
 # https://django-axes.readthedocs.io/en/latest/configuration.html
-AXES_COOLOFF_TIME = 2
-AXES_LOCKOUT_URL = '/locked'
+AXES_COOLOFF_TIME = int(os.environ.get('AXES_COOLOFF_TIME', '2'))
+AXES_LOCKOUT_URL = '/locked/'
 
 # Django Recaptcha
 # https://github.com/praekelt/django-recaptcha
-RECAPTCHA_PUBLIC_KEY = os.environ['reCAPTCHA_site']
-RECAPTCHA_PRIVATE_KEY = os.environ['reCAPTCHA_secret']
+RECAPTCHA_PUBLIC_KEY = os.environ['RECAPTCHA_PUBLIC_KEY']
+RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
 NOCAPTCHA = True
 
+# Email Config
+# https://docs.djangoproject.com/en/1.10/ref/settings/#email-backend
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_SUBJECT_PREFIX', 'webmaster@django-non-profit')
+EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX', '')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_PORT= int(os.environ.get('EMAIL_PORT', '25'))
 
-DEFAULT_FROM_EMAIL = 'noreply@refood-cascaiscpr.eu'
-EMAIL_SUBJECT_PREFIX = '[Refood] '
-EMAIL_HOST = 'localhost'
-EMAIL_PORT= 1025
 
 # Nose Test
+# https://github.com/django-nose/django-nose
+
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
