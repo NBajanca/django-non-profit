@@ -32,6 +32,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','').split()
 
 INSTALLED_APPS = [
     'volunteers',
+    'main',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -165,5 +166,5 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-erase',
     '--cover-xml',
-    '--cover-package=volunteers'
+    '--cover-package=main,volunteers'
 ]

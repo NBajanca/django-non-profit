@@ -1,0 +1,46 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row" style="padding-top: 20px">
+                <div class="col-md-8 col-md-offset-2">
+                    {% if no_ip %}
+                        <div id="no_ip" class="alert alert-danger" role="alert">{% trans 'no_ip' %}</div>
+                    {% endif %}
+
+                    <div class="alert alert-warning" role="alert">{% trans 'login_locked' %}</div>
+                </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading text-center">
+                        <img src="{% static 'main/img/logo_refood.png'%}"  style="width: 40%">
+                    </div>
+                    <div class="panel-body ">
+                        <form action="{% url 'main:locked_out' %}" method="post">
+                            {% csrf_token %}
+                            <fieldset>
+                                <div class="form-group">
+                                    {{ form.captcha.errors }}
+                                    {{ form.captcha }}
+                                </div>
+
+                                <div class="form-actions">
+                                    <input type="submit" value="{% trans 'Unlock' %}" class="btn btn-lg btn-success btn-block"/>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -25,7 +25,7 @@ urlpatterns = [
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += i18n_patterns(
-    url(r'^', include('volunteers.urls')),
+    url(r'^', include('main.urls')),
     prefix_default_language = False,
 )
 
