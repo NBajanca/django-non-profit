@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% load verbose_names %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Profile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'volunteers/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+<h1>Perfil</h1>
+<p>{% get_verbose_field_name object "username" %}: {{ object.username }}</p>
+<p>{% get_verbose_field_name object "first_name" %}: {{ object.first_name }}</p>
+<p>{% get_verbose_field_name object "last_name" %}: {{ object.last_name }}</p>
+<p>{% get_verbose_field_name object "email" %}: {{ object.email }}</p>
+
+{% if object.volunteer %}
+    <h2>Perfil de Voluntário</h2>
+    <p>{% get_verbose_field_name object.volunteer "date_of_birth" %}: {{ object.volunteer.date_of_birth }}</p>
+    <p>{% get_verbose_field_name object.volunteer "mobile_phone" %}: {{ object.volunteer.mobile_phone }}</p>
+    <p>{% get_verbose_field_name object.volunteer "car_availability" %}: {{ object.volunteer.car_availability }}</p>
+    <p>{% get_verbose_field_name object.volunteer "address" %}: {{ object.volunteer.address }}</p>
+    <p>{% get_verbose_field_name object.volunteer "academic_qualifications" %}: {{ object.volunteer.academic_qualifications }}</p>
+    <p>{% get_verbose_field_name object.volunteer "profession" %}: {{ object.volunteer.profession }}</p>
+    <p>{% get_verbose_field_name object.volunteer "volunteer_experience" %}: {{ object.volunteer.volunteer_experience }}</p>
+    <p>{% get_verbose_field_name object.volunteer "observations" %}: {{ object.volunteer.observations }}</p>
+
+{% else%}
+    <p>Not a volunteer</p>
+{% endif %}
+
+
+
+<!-- jQuery -->
+<script src="{% static 'volunteers/bower_components/jquery/dist/jquery.min.js' %}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'volunteers/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>
