@@ -13,6 +13,8 @@ env:
 script:
   - python manage.py migrate
   - python manage.py test
+  - coverage report
+  - coverage xml -d cover
   - python-codacy-coverage -r coverage.xml
 notifications:
   slack:
