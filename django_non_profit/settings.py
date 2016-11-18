@@ -160,7 +160,7 @@ EMAIL_PORT= int(os.environ.get('EMAIL_PORT', '25'))
 # Nose Test
 # https://github.com/django-nose/django-nose
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
     '--with-coverage',
