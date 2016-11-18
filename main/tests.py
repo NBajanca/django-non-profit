@@ -35,3 +35,10 @@ class AuthTestCase(TestCase):
 
         response = self.client.post(reverse('main:locked_out'), form_params, REMOTE_ADDR="")
         self.assertContains(response, '<div id="no_ip"', count=1, status_code=200)
+
+    def test_index(self):
+        self.client.login(username=self.user.username, password='top_secret')
+        response = self.client.get(reverse('main:index'))
+
+        self.assertTemplateUsed(response, 'main/index.html')
+        self.assertEqual(response.status_code, 200)

@@ -156,15 +156,3 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_PORT= int(os.environ.get('EMAIL_PORT', '25'))
 
-
-# Nose Test
-# https://github.com/django-nose/django-nose
-
-#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-erase',
-    '--cover-xml',
-    '--cover-package=main,volunteers'
-]
