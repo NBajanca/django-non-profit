@@ -1,12 +1,21 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
 from main import views
 from main.forms import CaptchaPasswordResetForm
+from main.views import ProfileView
 
 app_name = 'main'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+
+    # Profile
+    url(r'^profile/(?P<pk>[0-9]+)/$', login_required(ProfileView.as_view()), name='profile'),
+    url(r'^edit_profile/(?P<pk>[0-9]+)/$', login_required(views.edit_profile), name='edit_profile'),
+    url(r'^edit_profile/user/(?P<pk>[0-9]+)/$', login_required(views.edit_profile_user), name='edit_profile_user'),
+
+    # Auth
     url(r'login/$', auth_views.login, {'template_name': 'main/login.html'}, name='login'),
     url(r'logout/$', auth_views.logout, {'template_name': 'main/logout.html'}, name='logout'),
     url(r'^locked/$', views.locked_out, name='locked_out'),

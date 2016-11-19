@@ -11,6 +11,7 @@ class Volunteer(models.Model):
 
         on_delete=models.CASCADE,
     )
+
     date_of_birth = models.DateField(verbose_name=_("Date of birth"), null=True, blank=True)
     mobile_phone = PhoneNumberField(verbose_name=_("Mobile phone number"))
     car_availability = models.BooleanField(verbose_name=_("Car availability"), help_text=_("car_availability_help_text")

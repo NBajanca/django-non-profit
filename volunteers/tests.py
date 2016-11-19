@@ -17,13 +17,6 @@ class VolunteerTestCase(TestCase):
             VolunteerComplementaryContact.objects.create(volunteer=volunteer, first_name='Cascais', last_name='CPR',
                                                          contact_type=VolunteerComplementaryContact.ICE)
 
-    def test_volunteer_profile(self):
-        self.client.login(username=self.user.username, password='top_secret')
-        response = self.client.get(reverse('volunteers:profile', args=[self.user.pk]))
-
-        self.assertTemplateUsed(response, 'volunteers/profile.html')
-        self.assertContains(response, str(self.user.volunteer.mobile_phone) , count=1, status_code=200)
-
     def test_Volunteer_str(self):
         self.assertEqual(str(self.user.volunteer), self.user.get_username())
 

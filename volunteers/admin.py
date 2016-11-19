@@ -12,5 +12,4 @@ class VolunteerComplementaryContactInline(admin.TabularInline):
 class VolunteerAdmin(admin.ModelAdmin):
     inlines = (VolunteerComplementaryContactInline,)
 
-
 admin.site.register(Volunteer, VolunteerAdmin)

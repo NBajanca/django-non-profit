@@ -11,7 +11,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    {% block head %}
+        <title>{{ page_title }}</title>
+    {% endblock %}
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'main/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -35,32 +37,28 @@
 </head>
 
 <body>
-
-    {% block content %}
         <div id="wrapper">
 
             <!-- Navigation -->
             {% include 'main/nav.html' %}
 
             <!-- Page Content -->
-                <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">Blank</h1>
-                        </div>
-                        <!-- /.col-lg-12 -->
+            <div id="page-wrapper">
+                {% block content %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">{{ page_title }}</h1>
                     </div>
-                    <!-- /.row -->
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
+                {% endblock %}
             </div>
             <!-- /#page-wrapper -->
 
-
         </div>
         <!-- /#wrapper -->
-    {% endblock %}
+
 
     <!-- jQuery -->
     <script src="{% static 'main/bower_components/jquery/dist/jquery.min.js' %}"></script>
@@ -73,6 +71,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'main/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js' %}"></script>
+
+    {% block custom_js %}
+
+    {% endblock %}
 
 </body>
 

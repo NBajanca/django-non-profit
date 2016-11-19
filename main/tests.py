@@ -5,6 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from main.forms import CaptchaPasswordResetForm
+from volunteers.models import Volunteer
 
 
 class AuthTestCase(TestCase):
@@ -42,3 +43,19 @@ class AuthTestCase(TestCase):
 
         self.assertTemplateUsed(response, 'main/index.html')
         self.assertEqual(response.status_code, 200)
+
+    def test_profile(self):
+        self.client.login(username=self.user.username, password='top_secret')
+        response = self.client.get(reverse('main:profile', args=[self.user.pk]))
+
+        self.assertTemplateUsed(response, 'main/profile.html')
+        self.assertContains(response, str(self.user.email) , count=1, status_code=200)
+
+    def test_volunteer_profile(self):
+        volunteer = Volunteer.objects.create(user=self.user, mobile_phone='+351999999999')
+
+        self.client.login(username=self.user.username, password='top_secret')
+        response = self.client.get(reverse('main:profile', args=[self.user.pk]))
+
+        self.assertTemplateUsed(response, 'main/profile.html')
+        self.assertContains(response, str(self.user.volunteer.mobile_phone) , count=1, status_code=200)
