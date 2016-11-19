@@ -3,8 +3,6 @@ from captcha.fields import ReCaptchaField
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from django.template.defaultfilters import striptags
-from setuptools.compat import unicode
 
 
 class CaptchaForm(forms.Form):
