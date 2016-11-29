@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="pt_PT">
 
@@ -18,11 +17,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'main/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="{% static 'main/bower_components/metisMenu/dist/metisMenu.min.css' %}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{% static 'main/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="{% static 'main/bower_components/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
@@ -37,29 +31,10 @@
 </head>
 
 <body>
-        <div id="wrapper">
 
-            <!-- Navigation -->
-            {% include 'main/nav.html' %}
+    {% block content %}
 
-            <!-- Page Content -->
-            <div id="page-wrapper">
-                {% block title %}
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">{{ page_title }}</h1>
-                        </div>
-                        <!-- /.col-lg-12 -->
-                    </div>
-                {% endblock %}
-                <!-- /.row -->
-                {% block content %}
-                {% endblock %}
-            </div>
-            <!-- /#page-wrapper -->
-
-        </div>
-        <!-- /#wrapper -->
+    {% endblock %}
 
 
     <!-- jQuery -->
@@ -68,11 +43,6 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'main/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="{% static 'main/bower_components/metisMenu/dist/metisMenu.min.js' %}"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="{% static 'main/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js' %}"></script>
 
     {% block custom_js %}
 

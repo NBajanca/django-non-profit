@@ -8,7 +8,7 @@
     {% endwith %}
 {% endblock %}
 
-{% block content %}
+{% block title %}
     {% trans 'index_title' as page_title %}
     {% with page_title=page_title %}
         {{ block.super }}

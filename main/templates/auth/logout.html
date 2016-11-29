@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "auth/base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -7,16 +7,16 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-center"></i> {% trans 'password_reset_complete' %}</h3>
+                        <h3 class="panel-title text-center"></i> {% trans 'logout_successful' %}</h3>
                     </div>
                     <div class="panel-body">
-                        {% trans 'password_reset_complete_text' %}
+                        <img src="{% static 'main/img/excesso_voluntarios_necessidade.png' %} " style="width: 100%">
                     </div>
                     <div class="panel-footer">
-                        <a href="{% url 'main:login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> {% trans 'Go To Login' %} </a>
+                        <a href="{% url 'main:login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> {% trans 'click_to_login_again' %}</a>
                     </div>
                 </div>
             </div>
