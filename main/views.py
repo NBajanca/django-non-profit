@@ -11,8 +11,9 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from ipware.ip import get_ip  # Dev
 
-from main.forms import CaptchaForm, UserForm
+from main.forms import CaptchaForm, UserForm, PasswordChangeCustomForm
 from volunteers.forms import VolunteerForm
+from volunteers.models import Volunteer
 
 
 @login_required
@@ -25,6 +26,7 @@ class ProfileView(DetailView):
     template_name = 'main/profile.html'
 
 
+@login_required()
 def edit_profile(request, pk):
     try:
         user = User.objects.get(pk=pk)
@@ -34,12 +36,17 @@ def edit_profile(request, pk):
     context = dict()
     context['user_object'] = user
     context['form_user'] = UserForm(instance=user)
-    if user.volunteer is not None:
+    context['form_password'] = PasswordChangeCustomForm(user)
+
+    try:
         context['form_volunteer'] = VolunteerForm(instance=user.volunteer)
+    except Volunteer.DoesNotExist:
+        pass
 
     return render(request, 'main/edit_profile.html', context)
 
 
+@login_required()
 def edit_profile_user(request, pk):
     if request.method == 'POST':
         user = User.objects.get(pk=pk)
@@ -52,6 +59,30 @@ def edit_profile_user(request, pk):
             response_code = 200
             response_data = model_to_dict(updated_user, fields=['username', 'first_name', 'last_name'])
 
+        else:
+            response_code = 400
+            response_data = form.errors
+
+        return JsonResponse(
+            response_data,
+            status=response_code,
+        )
+
+    else:
+        raise Http404
+
+
+@login_required()
+def edit_profile_password(request, pk):
+    if request.method == 'POST':
+        user = User.objects.get(pk=pk)
+        form = PasswordChangeCustomForm(user, request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            response_code = 200
+            response_data = dict()
         else:
             response_code = 400
             response_data = form.errors
@@ -80,4 +111,4 @@ def locked_out(request):
             else:
                 no_ip = True
 
-    return render(request, 'main/locked_out.html', {'form': form, 'no_ip': no_ip})
+    return render(request, 'auth/locked_out.html', {'form': form, 'no_ip': no_ip})

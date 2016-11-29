@@ -4,6 +4,13 @@
 {% load verbose_names %}
 
 {% block head %}
+    {% trans 'edit_profile_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block title %}
     {% trans 'profile_title' as page_title %}
     {% with page_title=page_title %}
         {{ block.super }}
@@ -11,23 +18,20 @@
 {% endblock %}
 
 {% block content %}
-    {% trans 'profile_title' as page_title %}
-    {% with page_title=page_title %}
-        {{ block.super }}
-    {% endwith %}
-
     <div class="panel-body">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#user" data-toggle="tab" aria-expanded="true">{% trans 'User' %}</a>
-            </li>
-            <li class=""><a href="#volunteer" data-toggle="tab" aria-expanded="false">{% trans 'Volunteer' %}</a>
-            </li>
+            <li class="active"><a href="#user" data-toggle="tab" aria-expanded="true">{% trans 'User' %}</a></li>
+            <li class=""><a href="#password" data-toggle="tab" aria-expanded="false">{% trans 'Password' %}</a></li>
+            <li class=""><a href="#email" data-toggle="tab" aria-expanded="false">{% trans 'E-mail' %}</a></li>
+            <li class=""><a href="#volunteer" data-toggle="tab" aria-expanded="false">{% trans 'Volunteer' %}</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content" style="padding-top: 10px">
             <div class="tab-pane fade active in" id="user">
+                <h4>{% trans 'User' %}</h4>
+                <div style="padding-top: 10px"></div>
                 <form role="form" id="edit-profile-user-form">
                     {% csrf_token %}
                     <div class="form-group">
@@ -42,9 +46,31 @@
                         {{ form_user.last_name.label }}
                         {{ form_user.last_name }}
                     </div>
-                    <input type="submit" class="btn btn-default" value="{% trans 'Submit' %}" />
+                    <input type="submit" class="btn btn-default" value="{% trans 'change_user' %}" />
                 </form>
             </div>
+
+            <div class="tab-pane fade" id="password">
+                <h4>{% trans 'Password' %}</h4>
+                <div style="padding-top: 10px"></div>
+                <form role="form" id="edit-profile-password-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form_password.old_password.label }}
+                        {{ form_password.old_password }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_password.new_password1.label }}
+                        {{ form_password.new_password1 }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_password.new_password2.label }}
+                        {{ form_password.new_password2 }}
+                    </div>
+                    <input type="submit" class="btn btn-default" value="{% trans 'change_password' %}" />
+                </form>
+            </div>
+
             <div class="tab-pane fade" id="volunteer">
                 <h4>{% trans 'Volunteer' %}</h4>
                 {% if user_object.volunteer %}
@@ -95,9 +121,12 @@
 {% endblock %}
 
 {% block custom_js %}
+    <script type="text/javascript" src="{% static 'main/js/href_nav_tabs.js' %}"></script>
     <script type="text/javascript">
         var edit_profile_user_form_endpoint = '{% url 'main:edit_profile_user' user_object.pk %}';
+        var edit_profile_password_form_endpoint = '{% url 'main:edit_profile_password' user_object.pk %}';
         var django_csrf= '{{ csrf_token }}';
     </script>
     <script src="{% static 'main/js/edit_profile.js' %}"></script>
+
 {% endblock %}
