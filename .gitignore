@@ -95,4 +95,4 @@ ENV/
 db.sqlite3
 
 # Django collectstatic
-static/
+.static/
