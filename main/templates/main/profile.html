@@ -1,0 +1,110 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load verbose_names %}
+{% load staticfiles %}
+
+{% block head %}
+    {% trans 'profile_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block title %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{% trans 'profile_title' %} <a href="{% url 'main:edit_profile' request.user.id  %}"
+                                                                   class="btn btn-info" role="button">
+                <i class="fa fa-pencil" aria-hidden="true"></i> {% trans 'profile_edit_link' %}</a>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="panel-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#user" data-toggle="tab" aria-expanded="true">{% trans 'User' %}</a>
+            </li>
+            <li class=""><a href="#extended" data-toggle="tab" aria-expanded="false">{% trans 'Extended' %}</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="padding-top: 10px">
+            <div class="tab-pane fade active in" id="user">
+                <h4>{% trans 'User' %}</h4>
+                <div style="padding-top: 10px"></div>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td>{% get_verbose_field_name object "username" %}</td>
+                            <td>{{ object.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% get_verbose_field_name object "first_name" %}</td>
+                            <td>{{ object.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% get_verbose_field_name object "last_name" %}</td>
+                            <td>{{ object.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% get_verbose_field_name object "email" %}</td>
+                            <td>{{ object.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="extended">
+                <h4>{% trans 'Extended' %}</h4>
+                <div style="padding-top: 10px"></div>
+                {% if object.extendeduser %}
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "date_of_birth" %}</td>
+                                <td>{{ object.extendeduser.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "mobile_phone" %}</td>
+                                <td>{{ object.extendeduser.mobile_phone }}</td>
+                            </tr>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "address" %}</td>
+                                <td>{{ object.extendeduser.address }}</td>
+                            </tr>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "academic_qualifications" %}</td>
+                                <td>{{ object.extendeduser.academic_qualifications }}</td>
+                            </tr>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "profession" %}</td>
+                                <td>{{ object.extendeduser.profession }}</td>
+                            </tr>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "volunteer_experience" %}</td>
+                                <td>{{ object.extendeduser.volunteer_experience }}</td>
+                            </tr>
+                            <tr>
+                                <td>{% get_verbose_field_name object.extendeduser "observations" %}</td>
+                                <td>{{ object.extendeduser.observations }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% else%}
+                    <p>{% trans 'no_extended' %}</p>
+                    <a href="{% url 'main:edit_profile' object.id %}#extended" class="btn btn-primary btn-lg">{% trans 'create_extended' %}</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'main/js/href_nav_tabs.js' %}"></script>
+{% endblock %}

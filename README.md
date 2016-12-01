@@ -103,10 +103,9 @@ On the roadmap and will be out with the first release.
 ## Dependencies
 Dependencies that must be met to use the application:
 
-- [Django](https://www.djangoproject.com/)  1.10
-- [django-axes](https://github.com/jazzband/django-axes)    2.3
-- [django-ipware](https://github.com/un33k/django-ipware)   1.1
-- [django-nose](https://github.com/django-nose/django-nose)	1.4	
+- [Django](https://www.djangoproject.com/) 1.10
+- [django-axes](https://github.com/jazzband/django-axes) 2.3
+- [django-ipware](https://github.com/un33k/django-ipware) 1.1
 - [django-phonenumber-field](https://github.com/stefanfoulis/django-phonenumber-field) 1.1
 - [django-recaptcha](https://github.com/praekelt/django-recaptcha) 1.1
 

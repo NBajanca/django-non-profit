@@ -1,5 +1,5 @@
-from django.apps import AppConfig
+from django.apps import AppConfig  # pragma: no cover
 
 
-class VolunteersConfig(AppConfig):
+class VolunteersConfig(AppConfig):  # pragma: no cover
     name = 'volunteers'

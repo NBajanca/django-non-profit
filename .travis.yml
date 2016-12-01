@@ -12,7 +12,9 @@ env:
   - DJANGO_SETTINGS_MODULE=django_non_profit.settings SECRET_KEY=travis-very-secure-secret-key DEBUG=True DB_ENGINE=django.db.backends.postgresql_psycopg2 DB_NAME=travis_ci_test DB_USER=postgres
 script:
   - python manage.py migrate
-  - python manage.py test
+  - coverage run  --source=main,volunteers ./manage.py test
+  - coverage report
+  - coverage xml
   - python-codacy-coverage -r coverage.xml
 notifications:
   slack:

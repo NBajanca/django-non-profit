@@ -7,22 +7,26 @@ from django.utils.translation import ugettext as _
 class Volunteer(models.Model):
     user = models.OneToOneField(
         User,
+        verbose_name=_("User"),
+
         on_delete=models.CASCADE,
     )
-    date_of_birth = models.DateField(verbose_name=_("Date of birth"), null=True, blank=True)
-    mobile_phone = PhoneNumberField(verbose_name=_("Mobile phone number"))
+
     car_availability = models.BooleanField(verbose_name=_("Car availability"), help_text=_("car_availability_help_text")
                                            , default=False)
-    address = models.CharField(max_length=120, verbose_name=_("Adress"), help_text=_("address_help_text"), blank=True)
-    academic_qualifications = models.CharField(max_length=80, verbose_name=_("Academic qualifications"), blank=True)
-    profession = models.CharField(max_length=80, verbose_name=_("Profession"), blank=True)
-    volunteer_experience = models.TextField(verbose_name=_("Volunteer Experience"), blank=True)
-    observations = models.TextField(verbose_name=_("Observations"), blank=True)
+
+    def __str__(self):
+        volunteer_str = self.user.get_full_name()
+        if volunteer_str is not '':
+            return volunteer_str
+        else:
+            return self.user.get_username()
 
 
 class VolunteerComplementaryContact(models.Model):
     volunteer = models.ForeignKey(
         Volunteer,
+        related_name = 'volunteer_complementary_contact_list',
         on_delete=models.CASCADE,
     )
 
@@ -46,3 +50,6 @@ class VolunteerComplementaryContact(models.Model):
     mobile_phone = PhoneNumberField(verbose_name=_("Mobile phone number"), blank=True)
     email = models.EmailField(verbose_name=_("Email"), blank=True)
     relation = models.CharField(max_length=80, verbose_name=_("Relation"), blank=True)
+
+    def __str__(self):
+        return str(self.volunteer) + ' - ' + self.first_name + ' ' +self.last_name

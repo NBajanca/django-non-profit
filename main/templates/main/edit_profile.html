@@ -1,0 +1,170 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load verbose_names %}
+
+{% block head %}
+    {% trans 'edit_profile_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block title %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{% trans 'edit_profile_title' %} <a href="{% url 'main:profile' request.user.id  %}"
+                                                                   class="btn btn-primary" role="button">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> {% trans 'profile_return_link' %}</a>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="panel-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#user" data-toggle="tab" aria-expanded="true">{% trans 'User' %}</a></li>
+            <li class=""><a href="#password" data-toggle="tab" aria-expanded="false">{% trans 'Password' %}</a></li>
+            <li class=""><a href="#email" data-toggle="tab" aria-expanded="false">{% trans 'Email address' %}</a></li>
+            <li class=""><a href="#extended" data-toggle="tab" aria-expanded="false">{% trans 'Extended' %}</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="padding-top: 10px">
+            <div class="tab-pane fade active in" id="user">
+                <div id="edit-profile-user-success-alert" class="alert alert-success alert-dismissible" style="display: none" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% trans 'edit_profile_user_success' %}
+                </div>
+                <h4>{% trans 'User' %}</h4>
+                <div style="padding-top: 10px"></div>
+                <form role="form" id="edit-profile-user-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form_user.username.label }}
+                        {{ form_user.username }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_user.first_name.label }}
+                        {{ form_user.first_name }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_user.last_name.label }}
+                        {{ form_user.last_name }}
+                    </div>
+                    <input type="submit" class="btn btn-default" value="{% trans 'change_user' %}" />
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="password">
+                <div id="edit-profile-password-success-alert" class="alert alert-success alert-dismissible" style="display: none" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% trans 'edit_profile_password_success' %}
+                </div>
+                <h4>{% trans 'Password' %}</h4>
+                <div style="padding-top: 10px"></div>
+                <form role="form" id="edit-profile-password-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form_password.old_password.label }}
+                        {{ form_password.old_password }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_password.new_password1.label }}
+                        {{ form_password.new_password1 }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_password.new_password2.label }}
+                        {{ form_password.new_password2 }}
+                    </div>
+                    <input type="submit" class="btn btn-default" value="{% trans 'change_password' %}" />
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="email">
+                <div id="edit-profile-email-success-alert" class="alert alert-success alert-dismissible" style="display: none" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% trans 'edit_profile_email_success' %}
+                </div>
+                <h4>{% trans 'Email address' %}</h4>
+                <div style="padding-top: 10px"></div>
+                <form role="form" id="edit-profile-email-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% trans 'Current email address' %}
+                        <input id="email" class="form-control" type="email" placeholder="{{ user_object.email }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        {{ form_email.new_email1.label }}
+                        {{ form_email.new_email1 }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_email.new_email2.label }}
+                        {{ form_email.new_email2 }}
+                    </div>
+                    <input type="submit" class="btn btn-default" value="{% trans 'change_email' %}" />
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="extended">
+                <div id="edit-profile-extended-success-alert" class="alert alert-success alert-dismissible" style="display: none" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {% trans 'edit_profile_extended_success' %}
+                </div>
+                <h4>{% trans 'Extended' %}</h4>
+                <div style="padding-top: 10px"></div>
+                <form role="form" id="edit-profile-extended-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form_extended_user.date_of_birth.label }}
+                        {{ form_extended_user.date_of_birth }}
+                        <p class="help-block">{{ form_extended_user.date_of_birth.help_text }}</p>
+                    </div>
+                    <div class="form-group">
+                        {{ form_extended_user.mobile_phone.label }}
+                        {{ form_extended_user.mobile_phone }}
+                        <p class="help-block">{{ form_extended_user.mobile_phone.help_text }}</p>
+                    </div>
+                    <div class="form-group">
+                        {{ form_extended_user.address.label }}
+                        {{ form_extended_user.address }}
+                        <p class="help-block">{{ form_extended_user.address.help_text }}</p>
+                    </div>
+                    <div class="form-group">
+                        {{ form_extended_user.academic_qualifications.label }}
+                        {{ form_extended_user.academic_qualifications }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_extended_user.profession.label }}
+                        {{ form_extended_user.profession }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_extended_user.volunteer_experience.label }}
+                        {{ form_extended_user.volunteer_experience }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_extended_user.observations.label }}
+                        {{ form_extended_user.observations }}
+                    </div>
+                    <input type="submit" class="btn btn-default" value="{% trans 'change_extended' %}" />
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'main/js/href_nav_tabs.js' %}"></script>
+    <script type="text/javascript">
+        var edit_profile_user_form_endpoint = '{% url 'main:edit_profile_user' user_object.pk %}';
+        var edit_profile_password_form_endpoint = '{% url 'main:edit_profile_password' user_object.pk %}';
+        var edit_profile_email_form_endpoint = '{% url 'main:edit_profile_email' user_object.pk %}';
+        var edit_profile_extended_form_endpoint = '{% url 'main:edit_profile_extended' user_object.pk %}';
+        var django_csrf= '{{ csrf_token }}';
+    </script>
+    <script src="{% static 'main/js/edit_profile.js' %}"></script>
+
+{% endblock %}

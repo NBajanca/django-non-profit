@@ -1,3 +1,17 @@
 {% extends "main/base.html" %}
+{% load i18n %}
 
+{% block head %}
+    {% trans 'index_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block title %}
+    {% trans 'index_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
 
