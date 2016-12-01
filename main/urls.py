@@ -15,6 +15,9 @@ urlpatterns = [
     url(r'^edit-profile/(?P<pk>[0-9]+)/$', views.edit_profile, name='edit_profile'),
     url(r'^edit-profile/user/(?P<pk>[0-9]+)/$', views.edit_profile_user, name='edit_profile_user'),
     url(r'^edit-profile/password/(?P<pk>[0-9]+)/$', views.edit_profile_password, name='edit_profile_password'),
+    url(r'^edit-profile/email/(?P<pk>[0-9]+)/$', views.edit_profile_email, name='edit_profile_email'),
+    url(r'^edit-profile/extended/(?P<pk>[0-9]+)/$', views.edit_profile_extended, name='edit_profile_extended'),
+
 
     # Auth
     url(r'login/$', auth_views.login, {'template_name': 'auth/login.html'}, name='login'),
@@ -29,7 +32,7 @@ urlpatterns = [
         name='password_reset_done'),
     url(r'password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, {'template_name': 'auth/password_reset_confirm.html',
-                                            'post_reset_redirect': 'main:password_reset_complete',},
+                                            'post_reset_redirect': 'main:password_reset_complete'},
         name='password_reset_confirm'),
     url(r'password_reset/complete/$', auth_views.password_reset_complete,
         {'template_name': 'auth/password_reset_complete.html'}, name='password_reset_complete'),

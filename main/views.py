@@ -11,8 +11,8 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from ipware.ip import get_ip  # Dev
 
-from main.forms import CaptchaForm, UserForm, PasswordChangeCustomForm
-from volunteers.forms import VolunteerForm
+from main.forms import CaptchaForm, UserForm, PasswordChangeCustomForm, ExtendedUserForm, EmailChangeForm
+from main.models import ExtendedUser
 from volunteers.models import Volunteer
 
 
@@ -37,11 +37,12 @@ def edit_profile(request, pk):
     context['user_object'] = user
     context['form_user'] = UserForm(instance=user)
     context['form_password'] = PasswordChangeCustomForm(user)
-
+    context['form_email'] = EmailChangeForm(user)
     try:
-        context['form_volunteer'] = VolunteerForm(instance=user.volunteer)
-    except Volunteer.DoesNotExist:
-        pass
+        context['form_extended_user'] = ExtendedUserForm(instance=user.extendeduser)
+    except ExtendedUser.DoesNotExist:
+        extended_user = ExtendedUser.objects.create(user=user)
+        context['form_extended_user'] = ExtendedUserForm(instance=extended_user)
 
     return render(request, 'main/edit_profile.html', context)
 
@@ -49,7 +50,11 @@ def edit_profile(request, pk):
 @login_required()
 def edit_profile_user(request, pk):
     if request.method == 'POST':
-        user = User.objects.get(pk=pk)
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
         form = UserForm(request.POST, instance=user)
 
         if form.is_valid():
@@ -75,7 +80,11 @@ def edit_profile_user(request, pk):
 @login_required()
 def edit_profile_password(request, pk):
     if request.method == 'POST':
-        user = User.objects.get(pk=pk)
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
         form = PasswordChangeCustomForm(user, request.POST)
 
         if form.is_valid():
@@ -83,6 +92,69 @@ def edit_profile_password(request, pk):
 
             response_code = 200
             response_data = dict()
+        else:
+            response_code = 400
+            response_data = form.errors
+
+        return JsonResponse(
+            response_data,
+            status=response_code,
+        )
+
+    else:
+        raise Http404
+
+
+@login_required()
+def edit_profile_email(request, pk):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+        form = EmailChangeForm(user, request.POST)
+
+        if form.is_valid():
+            form.save()
+            updated_user = User.objects.get(pk=pk)
+
+            response_code = 200
+            response_data = model_to_dict(updated_user, fields=['email'])
+        else:
+            response_code = 400
+            response_data = form.errors
+
+        return JsonResponse(
+            response_data,
+            status=response_code,
+        )
+
+    else:
+        raise Http404
+
+
+@login_required()
+def edit_profile_extended(request, pk):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(pk=pk)
+            extended_user = ExtendedUser.objects.get(user=user)
+        except (User.DoesNotExist, Volunteer.DoesNotExist):
+            raise Http404
+
+        form = ExtendedUserForm(request.POST, instance=extended_user)
+
+        if form.is_valid():
+            form.save()
+            updated_extended_user = ExtendedUser.objects.get(user=user)
+
+            response_code = 200
+            response_data = model_to_dict(updated_extended_user, fields=['date_of_birth', 'address',
+                                                                         'academic_qualifications', 'profession',
+                                                                         'volunteer_experience', 'observations'])
+            # The phone number object is not JSON serializable
+            response_data['mobile_phone'] = str(updated_extended_user.mobile_phone)
         else:
             response_code = 400
             response_data = form.errors
