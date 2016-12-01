@@ -12,15 +12,8 @@ class Volunteer(models.Model):
         on_delete=models.CASCADE,
     )
 
-    date_of_birth = models.DateField(verbose_name=_("Date of birth"), null=True, blank=True)
-    mobile_phone = PhoneNumberField(verbose_name=_("Mobile phone number"))
     car_availability = models.BooleanField(verbose_name=_("Car availability"), help_text=_("car_availability_help_text")
                                            , default=False)
-    address = models.CharField(max_length=120, verbose_name=_("Adress"), help_text=_("address_help_text"), blank=True)
-    academic_qualifications = models.CharField(max_length=80, verbose_name=_("Academic qualifications"), blank=True)
-    profession = models.CharField(max_length=80, verbose_name=_("Profession"), blank=True)
-    volunteer_experience = models.TextField(verbose_name=_("Volunteer Experience"), blank=True)
-    observations = models.TextField(verbose_name=_("Observations"), blank=True)
 
     def __str__(self):
         volunteer_str = self.user.get_full_name()

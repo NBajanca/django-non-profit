@@ -28,7 +28,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#user" data-toggle="tab" aria-expanded="true">{% trans 'User' %}</a>
             </li>
-            <li class=""><a href="#volunteer" data-toggle="tab" aria-expanded="false">{% trans 'Volunteer' %}</a>
+            <li class=""><a href="#extended" data-toggle="tab" aria-expanded="false">{% trans 'Extended' %}</a>
             </li>
         </ul>
 
@@ -58,55 +58,45 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="volunteer">
-                <h4>{% trans 'Volunteer' %}</h4>
+            <div class="tab-pane fade" id="extended">
+                <h4>{% trans 'Extended' %}</h4>
                 <div style="padding-top: 10px"></div>
-                {% if object.volunteer %}
+                {% if object.extendeduser %}
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "date_of_birth" %}</td>
-                                <td>{{ object.volunteer.date_of_birth }}</td>
+                                <td>{% get_verbose_field_name object.extendeduser "date_of_birth" %}</td>
+                                <td>{{ object.extendeduser.date_of_birth }}</td>
                             </tr>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "mobile_phone" %}</td>
-                                <td>{{ object.volunteer.mobile_phone }}</td>
+                                <td>{% get_verbose_field_name object.extendeduser "mobile_phone" %}</td>
+                                <td>{{ object.extendeduser.mobile_phone }}</td>
                             </tr>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "car_availability" %}</td>
-                                <td>
-                                    {% if object.volunteer.car_availability %}
-                                        <i class="fa fa-check" ></i>
-                                    {% else %}
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    {% endif %}
-                                </td>
+                                <td>{% get_verbose_field_name object.extendeduser "address" %}</td>
+                                <td>{{ object.extendeduser.address }}</td>
                             </tr>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "address" %}</td>
-                                <td>{{ object.volunteer.address }}</td>
+                                <td>{% get_verbose_field_name object.extendeduser "academic_qualifications" %}</td>
+                                <td>{{ object.extendeduser.academic_qualifications }}</td>
                             </tr>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "academic_qualifications" %}</td>
-                                <td>{{ object.volunteer.academic_qualifications }}</td>
+                                <td>{% get_verbose_field_name object.extendeduser "profession" %}</td>
+                                <td>{{ object.extendeduser.profession }}</td>
                             </tr>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "profession" %}</td>
-                                <td>{{ object.volunteer.profession }}</td>
+                                <td>{% get_verbose_field_name object.extendeduser "volunteer_experience" %}</td>
+                                <td>{{ object.extendeduser.volunteer_experience }}</td>
                             </tr>
                             <tr>
-                                <td>{% get_verbose_field_name object.volunteer "volunteer_experience" %}</td>
-                                <td>{{ object.volunteer.volunteer_experience }}</td>
-                            </tr>
-                            <tr>
-                                <td>{% get_verbose_field_name object.volunteer "observations" %}</td>
-                                <td>{{ object.volunteer.observations }}</td>
+                                <td>{% get_verbose_field_name object.extendeduser "observations" %}</td>
+                                <td>{{ object.extendeduser.observations }}</td>
                             </tr>
                         </tbody>
                     </table>
                 {% else%}
-                    <p>{% trans 'not_a_volunteer' %}</p>
-                    {# TODO: Allow user to become volunteer #}
+                    <p>{% trans 'no_extended' %}</p>
+                    <a href="{% url 'main:edit_profile' object.id %}#extended" class="btn btn-primary btn-lg">{% trans 'create_extended' %}</a>
                 {% endif %}
 
             </div>

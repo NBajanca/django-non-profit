@@ -12,7 +12,7 @@ class ExtendedUser(models.Model):
 
     )
 
-    date_of_birth = models.DateField(verbose_name=_("Date of birth"), null=True, blank=True)
+    date_of_birth = models.DateField(verbose_name=_("Date of birth"), help_text=_("date_of_birth_help_text"), null=True, blank=True)
     mobile_phone = PhoneNumberField(verbose_name=_("Mobile phone number"), help_text=_("mobile_phone_help_text"))
     address = models.CharField(max_length=120, verbose_name=_("Address"), help_text=_("address_help_text"), blank=True)
     academic_qualifications = models.CharField(max_length=80, verbose_name=_("Academic qualifications"), blank=True)

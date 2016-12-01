@@ -10,7 +10,7 @@ class VolunteerTestCase(TestCase):
         self.user = User.objects.create_user(
             username='refood', email='test@refood-non-profit.org', password='top_secret')
 
-        volunteer = Volunteer.objects.create(user=self.user, mobile_phone='+351999999999')
+        volunteer = Volunteer.objects.create(user=self.user, car_availability=True)
 
         self.volunteer_complementary_contact = \
             VolunteerComplementaryContact.objects.create(volunteer=volunteer, first_name='Cascais', last_name='CPR',
@@ -29,8 +29,3 @@ class VolunteerTestCase(TestCase):
         self.assertEqual(str(self.user.volunteer.volunteer_complementary_contact_list.first()),
                          self.user.get_username() + ' - ' + self.volunteer_complementary_contact.first_name + ' ' +
                          self.volunteer_complementary_contact.last_name)
-
-
-
-
-
