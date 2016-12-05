@@ -3,7 +3,9 @@ Django non-profit
 
 [![Build Status](https://travis-ci.org/NBajanca/django-non-profit.svg?branch=master)](https://travis-ci.org/NBajanca/django-non-profit)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/78f2889c44324f26a46629cef775a6ed)](https://www.codacy.com/app/NBajanca/django-non-profit?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NBajanca/django-non-profit&amp;utm_campaign=Badge_Coverage)
+[![Requirements Status](https://requires.io/github/NBajanca/django-non-profit/requirements.svg?branch=master)](https://requires.io/github/NBajanca/django-non-profit/requirements/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/78f2889c44324f26a46629cef775a6ed)](https://www.codacy.com/app/nbajanca_first/django-non-profit?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NBajanca/django-non-profit&amp;utm_campaign=Badge_Grade)
+
 
 
 Django non-profit is a web application built with Django that will be used as a management platform for a non-profit. It is being developed in [REFOOD CASCAIS CPR](http://www.re-food.org/pt/nucleos/portugal/lisboa/cascais-cpr), and the first release will be out in December!
