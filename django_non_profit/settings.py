@@ -135,6 +135,12 @@ STATIC_ROOT = 'static/'
 
 LOGIN_REDIRECT_URL = '/'
 
+
+# Django-dual-authentication
+# https://github.com/Zeioth/django-dual-authentication
+AUTHENTICATION_BACKENDS = ['django-dual-authentication.backends.DualAuthentication']
+AUTHENTICATION_METHOD = 'email'
+
 # Django Axes
 # https://django-axes.readthedocs.io/en/latest/configuration.html
 AXES_COOLOFF_TIME = int(os.environ.get('AXES_COOLOFF_TIME', '2'))

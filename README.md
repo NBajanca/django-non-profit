@@ -108,8 +108,10 @@ Dependencies that must be met to use the application:
 - [django-ipware](https://github.com/un33k/django-ipware) 1.1
 - [django-phonenumber-field](https://github.com/stefanfoulis/django-phonenumber-field) 1.1
 - [django-recaptcha](https://github.com/praekelt/django-recaptcha) 1.1
+- [django-dual-authentication](https://github.com/Zeioth/django-dual-authentication) 1.0
 
 The rest of the dependencies come from these and are automatically installed with pip.
+These dependencies are stated in requirements.txt, together with the ones needed for CI.
 
 ## License
 
