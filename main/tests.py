@@ -66,7 +66,8 @@ class MainTestCase(TestCase):
         response = self.client.get(reverse('main:profile', args=[self.user.pk]))
 
         self.assertTemplateUsed(response, 'main/profile.html')
-        self.assertContains(response, str(self.user.email), count=1, status_code=200)
+        # One from the NAV other from profile
+        self.assertContains(response, str(self.user.email), count=2, status_code=200)
 
     def test_edit_profile(self):
         self.client.login(username=self.user.username, password='top_secret')
