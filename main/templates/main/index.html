@@ -8,10 +8,25 @@
     {% endwith %}
 {% endblock %}
 
-{% block title %}
-    {% trans 'index_title' as page_title %}
-    {% with page_title=page_title %}
+{% block nav %}
+    {% trans 'app_title' as app_title %}
+    {% with app_title=app_title %}
         {{ block.super }}
     {% endwith %}
+{% endblock %}
+
+{% block title %}
+    <div style="height: 20px"></div>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{% trans 'Hello' %} {{ request.user.first_name }},</h1>
+
+        </div>
+    </div>
 {% endblock %}
 

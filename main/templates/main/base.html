@@ -40,8 +40,9 @@
         <div id="wrapper">
 
             <!-- Navigation -->
-            {% include 'main/nav.html' %}
-
+            {% block nav %}
+                {% include 'main/nav.html' %}
+            {% endblock %}
             <!-- Page Content -->
             <div id="page-wrapper">
                 {% block title %}
