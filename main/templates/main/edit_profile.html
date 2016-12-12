@@ -8,6 +8,11 @@
     {% with page_title=page_title %}
         {{ block.super }}
     {% endwith %}
+
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'main/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -120,7 +125,12 @@
                     {% csrf_token %}
                     <div class="form-group">
                         {{ form_extended_user.date_of_birth.label }}
-                        {{ form_extended_user.date_of_birth }}
+                        <div class='input-group date' id='datetimepicker1'>
+                            {{ form_extended_user.date_of_birth }}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                         <p class="help-block">{{ form_extended_user.date_of_birth.help_text }}</p>
                     </div>
                     <div class="form-group">
@@ -158,12 +168,20 @@
 
 {% block custom_js %}
     <script type="text/javascript" src="{% static 'main/js/href_nav_tabs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'main/bower_components/moment/min/moment.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'main/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
     <script type="text/javascript">
         var edit_profile_user_form_endpoint = '{% url 'main:edit_profile_user' user_object.pk %}';
         var edit_profile_password_form_endpoint = '{% url 'main:edit_profile_password' user_object.pk %}';
         var edit_profile_email_form_endpoint = '{% url 'main:edit_profile_email' user_object.pk %}';
         var edit_profile_extended_form_endpoint = '{% url 'main:edit_profile_extended' user_object.pk %}';
         var django_csrf= '{{ csrf_token }}';
+
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
     </script>
     <script src="{% static 'main/js/edit_profile.js' %}"></script>
 

@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DEBUG', 'False') == 'True')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
 
 # Application definition
@@ -62,8 +62,6 @@ ROOT_URLCONF = 'django_non_profit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,8 +89,6 @@ DATABASES = {
         'PORT':     os.environ.get('DB_PORT', ''),
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -131,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static/'
+# STATIC_ROOT = 'static'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -158,5 +154,4 @@ EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX', '')
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_PORT= int(os.environ.get('EMAIL_PORT', '25'))
-
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '25'))

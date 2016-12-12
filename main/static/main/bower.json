@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "startbootstrap-sb-admin-2": "blackrockdigital-startbootstrap-sb-admin-2#3.3.7"
+    "startbootstrap-sb-admin-2": "blackrockdigital-startbootstrap-sb-admin-2#3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.43"
   }
 }
