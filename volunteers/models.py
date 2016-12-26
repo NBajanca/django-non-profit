@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import ugettext as _
 
@@ -23,8 +24,42 @@ class Task(models.Model):
 
     time_beginning = models.TimeField()
     time_ending = models.TimeField()
-    min_volunteers = models.IntegerField()
-    max_volunteers = models.IntegerField()
+    min_volunteers = models.PositiveSmallIntegerField()
+    max_volunteers = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Shift(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+    MONDAY = '1'
+    TUESDAY = '2'
+    WEDNESDAY = '3'
+    THURSDAY = '4'
+    FRIDAY = '5'
+    SATURDAY = '6'
+    SUNDAY = '7'
+    DAY_OF_THE_WEEK = (
+        (MONDAY, _('Monday')),
+        (TUESDAY, _('Tuesday')),
+        (WEDNESDAY, _('Wednesday')),
+        (THURSDAY, _('Thursday')),
+        (FRIDAY, _('Friday')),
+        (SATURDAY, _('Saturday')),
+        (SUNDAY, _('Sunday')),
+    )
+    day_of_the_week = models.CharField(
+        max_length=2,
+        choices=DAY_OF_THE_WEEK
+    )
+
+    class Meta:
+        unique_together = ('task', 'day_of_the_week',)
+
+    def __str__(self):
+        return self.task.name + ' (' + self.get_day_of_the_week_display() + ')'
 
 
 class Volunteer(models.Model):
@@ -43,3 +78,64 @@ class Volunteer(models.Model):
             return volunteer_str
         else:
             return self.user.get_username()
+
+
+class Preference(models.Model):
+    volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE)
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    priority = models.IntegerField(
+        default=1,
+        validators=[
+            MaxValueValidator(3),
+            MinValueValidator(1)
+        ])
+
+    class Meta:
+        unique_together = ('volunteer', 'shift',)
+
+    def __str__(self):
+        return '[' + str(self.priority) + '] ' + str(self.volunteer) + ' - ' + str(self.shift)
+
+
+class VolunteerShift(models.Model):
+    volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE)
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+
+    WEEKLY = 'W'
+    BIWEEKLY = 'B'
+    MONTHLY = 'M'
+    FREQUENCY = (
+        (WEEKLY, _('Weekly')),
+        (BIWEEKLY, _('Biweekly')),
+        (MONTHLY, _('Monthly')),
+    )
+    frequency = models.CharField(
+        max_length=1,
+        choices=FREQUENCY,
+        default=WEEKLY,
+    )
+
+    class Meta:
+        unique_together = ('volunteer', 'shift',)
+
+    def __str__(self):
+        return  str(self.volunteer) + ' - ' + str(self.shift)
+
+
+class VolunteerUnavailability(models.Model):
+    volunteer_shift = models.ForeignKey(VolunteerShift, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.date) + ' - ' + str(self.volunteer_shift)
+
+
+class VolunteerPresence(models.Model):
+    volunteer_shift = models.ForeignKey(VolunteerShift, on_delete=models.CASCADE)
+    date = models.DateField()
+    presence = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.date) + ' - ' + str(self.volunteer_shift)
+
+
