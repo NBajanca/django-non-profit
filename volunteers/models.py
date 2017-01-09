@@ -119,7 +119,7 @@ class VolunteerShift(models.Model):
         unique_together = ('volunteer', 'shift',)
 
     def __str__(self):
-        return  str(self.volunteer) + ' - ' + str(self.shift)
+        return str(self.volunteer) + ' - ' + str(self.shift)
 
 
 class VolunteerUnavailability(models.Model):
@@ -137,5 +137,3 @@ class VolunteerPresence(models.Model):
 
     def __str__(self):
         return str(self.date) + ' - ' + str(self.volunteer_shift)
-
-
