@@ -1,0 +1,60 @@
+{% extends "volunteers/base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    {% trans 'volunteer_index_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block custom_css %}
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'main/bower_components/morrisjs/morris.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+    {% trans 'volunteer_index_title' as page_title %}
+    {% with page_title=page_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{%  block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% trans 'Volunteers by state' %}
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="volunteers-state"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'main/bower_components/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'main/bower_components/morrisjs/morris.min.js' %}"></script>
+    <script>
+        Morris.Donut({
+            element: 'volunteers-state',
+            data: [{
+                label: "{% trans 'num_volunteers_working' %}",
+                value: {{ num_volunteers_working }} }, {
+                label: "{% trans 'num_volunteers_active_not_working' %}",
+                value: {{ num_volunteers_active_not_working }} }, {
+                label: "{% trans 'num_volunteers_inactive' %}",
+                value: {{ num_volunteers_inactive }} }],
+            resize: true
+        });
+    </script>
+{% endblock %}

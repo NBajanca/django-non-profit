@@ -72,6 +72,9 @@ class Volunteer(models.Model):
     car_availability = models.BooleanField(verbose_name=_("Car availability"),
                                            help_text=_("car_availability_help_text"), default=False)
 
+    class Meta:
+        permissions = (("can_manage_volunteer", "Can manage volunteer"),)
+
     def __str__(self):
         volunteer_str = self.user.get_full_name()
         if volunteer_str is not '':

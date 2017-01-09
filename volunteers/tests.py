@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
+from django.test import RequestFactory
 from django.test import TestCase
 
 from volunteers.models import Volunteer, Task, Shift, Preference, VolunteerShift, VolunteerUnavailability, \
     VolunteerPresence
+from volunteers.views import index
 
 
 class VolunteerTestCase(TestCase):
@@ -22,6 +24,8 @@ class VolunteerTestCase(TestCase):
                                                                                date='2016-12-26')
         self.volunteer_presence = VolunteerPresence.objects.create(volunteer_shift=self.volunteer_shift,
                                                                    date='2016-12-27', presence=True)
+
+        self.factory = RequestFactory()
 
     def test_Volunteer(self):
         self.assertEqual(str(self.user.volunteer), self.user.get_username())
@@ -50,3 +54,9 @@ class VolunteerTestCase(TestCase):
 
     def test_VolunteerPresence(self):
         self.assertEqual(str(self.volunteer_presence), '2016-12-27 - refood - Distribuição (Segunda-feira)')
+
+    def test_view_index(self):
+        request = self.factory.get('/volunteers/')
+        request.user = self.user
+        response = index(request)
+        self.assertContains(response, 'Volunteers by state')

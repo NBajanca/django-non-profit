@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block head %}
+    <title>{{ page_title }} | {% trans 'volunteer_app_title' %} - {% trans 'non_profit_name' %}</title>
+{% endblock %}
+
+{% block nav %}
+    {% trans 'volunteer_app_title' as app_title %}
+    {% with app_title=app_title %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
